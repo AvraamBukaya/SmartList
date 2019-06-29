@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SmartList</string>
+
+    <!---LoginActivity values-->
+    <string name="sign_out_btn">Sign Out</string>
+
+    <!---LoginFaceBook values-->
+    <string name="facebook_application_id" translatable="false">1030922510448913</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1030922510448913</string>
+
+
+</resources>

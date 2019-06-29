@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1029156164568",
+    "firebase_url": "https://smart-list-4e70a.firebaseio.com",
+    "project_id": "smart-list-4e70a",
+    "storage_bucket": "smart-list-4e70a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029156164568:android:fccb77179df2853c",
+        "android_client_info": {
+          "package_name": "com.avraam.smartlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029156164568-eos2gimrc2rt41s2isdujon87t1t0bk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avraam.smartlist",
+            "certificate_hash": "10b724400ff42661cb5d20fa0571041dbd521d05"
+          }
+        },
+        {
+          "client_id": "1029156164568-8pp264f5eitm68cvcbpekon4ds1e3a3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoCWHm-Svs5LkcKWoijMujzS25ijbeTnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029156164568-8pp264f5eitm68cvcbpekon4ds1e3a3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
