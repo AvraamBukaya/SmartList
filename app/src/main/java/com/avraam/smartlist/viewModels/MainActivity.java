@@ -1,8 +1,10 @@
-package com.avraam.smartlist;
+package com.avraam.smartlist.viewModels;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.avraam.smartlist.R;
 
 public class MainActivity extends AppCompatActivity {
 
