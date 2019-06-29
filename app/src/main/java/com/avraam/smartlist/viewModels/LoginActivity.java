@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avraam.smartlist.R;
@@ -33,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MY_REQUEST_CODE = 1213 ;
     private List<AuthUI.IdpConfig>providers;
     private Button btn_sign_out;
+    private TextView first_name;
+    private TextView last_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         );
         showsSignInOptions();
         btn_sign_out = findViewById(R.id.sign_out_btn);
+        first_name = findViewById(R.id.first_name);
+        first_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        last_name = findViewById(R.id.last_name);
         signInWith();
 
     }
@@ -61,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
                        setTheme(R.style.FirebaseUI).
                        setLogo(R.drawable.shoppingcard)
                        .build(),MY_REQUEST_CODE
-
        );
     }
 
@@ -79,13 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                 //Get User
 
                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Intent mainScreenSender = new Intent(this, MainActivity.class);
-                //startActivity(mainScreenSender);
-                //finish();
 
-                //Show Email on Toast
                 popMessage(user.getEmail());
-
 
                 //Set Button Sign Out
                 //btn_sign_out.setEnabled(true);
