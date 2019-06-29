@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.avraam.smartlist.R;
+import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 
 
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,17 +47,20 @@ public class LoginActivity extends AppCompatActivity {
         );
         showsSignInOptions();
         btn_sign_out = findViewById(R.id.sign_out_btn);
-        onClickSignOutBtn();
+        signInWith();
 
     }
+
+
 
     private void showsSignInOptions()
     {
        startActivityForResult(
                AuthUI.getInstance().createSignInIntentBuilder().
                        setAvailableProviders(providers).
-                       setTheme(R.style.LoginTheme).
-                       build(),MY_REQUEST_CODE
+                       setTheme(R.style.FirebaseUI).
+                       setLogo(R.drawable.shoppingcard)
+                       .build(),MY_REQUEST_CODE
 
        );
     }
@@ -69,21 +74,21 @@ public class LoginActivity extends AppCompatActivity {
         {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
-            if(requestCode == RESULT_OK)
+            if(resultCode == RESULT_OK)
             {
                 //Get User
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Intent mainScreenSender = new Intent(this, MainActivity.class);
-                startActivity(mainScreenSender);
-                finish();
+               FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //Intent mainScreenSender = new Intent(this, MainActivity.class);
+                //startActivity(mainScreenSender);
+                //finish();
 
                 //Show Email on Toast
                 popMessage(user.getEmail());
-                //Toast.makeText(this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
+
 
                 //Set Button Sign Out
-                btn_sign_out.setEnabled(true);
+                //btn_sign_out.setEnabled(true);
             }
             else if(requestCode == RESULT_CANCELED){
                 popMessage("Sign-In cancelled");
@@ -94,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickSignOutBtn()
+    public void signInWith()
     {
         btn_sign_out.setOnClickListener(new View.OnClickListener()
         {
@@ -108,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task)
                             {
-                                btn_sign_out.setEnabled(false);
+                                //btn_sign_out.setEnabled(false);
                                 showsSignInOptions();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -121,6 +126,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClick(View v) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            signInWith();
+                            finish();
+                        }
+                    });
+    }
+
+
+
 
     public void popMessage(String message){
         Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();

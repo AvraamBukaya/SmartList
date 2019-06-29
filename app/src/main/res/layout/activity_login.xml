@@ -7,39 +7,58 @@
     tools:context=".viewModels.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/upper_div"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src=""
-            />
+        android:layout_height="292dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-38dp"
+        android:background="@android:color/holo_blue_light">
 
 
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wellcome To Smart List App"
-            android:textSize="20sp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/wellcome_to_smart_list_app"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sign_out_btn"
+        android:layout_alignBottom="@+id/upper_div"
+        android:layout_marginBottom="-41dp">
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            />
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </androidx.cardview.widget.CardView>
-    
-
-
 
 
     <Button
         android:id="@+id/sign_out_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="false"
+        android:layout_alignBottom="@+id/upper_div"
+        android:layout_marginBottom="-135dp"
+        android:onClick="onClick"
         android:text="@string/sign_out_btn" />
 
 
