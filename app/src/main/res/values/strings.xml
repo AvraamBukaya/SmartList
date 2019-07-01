@@ -3,6 +3,7 @@
 
     <!---LoginActivity values-->
     <string name="sign_out_btn">Sign Out </string>
+    <string name="btn_move_to_main_screen">Continue</string>
 
     <!---LoginFaceBook values-->
     <string name="facebook_application_id" translatable="false">1030922510448913</string>

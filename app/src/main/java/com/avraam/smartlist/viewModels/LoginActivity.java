@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MY_REQUEST_CODE = 1213 ;
     private List<AuthUI.IdpConfig>providers;
     private Button btn_sign_out;
-    private TextView first_name;
-    private TextView last_name;
+    private Button btn_continue_main_screen;
+    private TextView full_name;
+    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,15 @@ public class LoginActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.GoogleBuilder().build(),
                 new AuthUI.IdpConfig.FacebookBuilder().build()
         );
-        showsSignInOptions();
+
         btn_sign_out = findViewById(R.id.sign_out_btn);
-        first_name = findViewById(R.id.first_name);
-        first_name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        last_name = findViewById(R.id.last_name);
+        btn_continue_main_screen = findViewById(R.id.btn_main_screen);
+        full_name = findViewById(R.id.user_full_name);
+        auth = FirebaseAuth.getInstance();
+        userLoggedIn();
+        full_name.setText("Hi "+auth.getInstance().getCurrentUser().getDisplayName());
         signInWith();
+
 
     }
 
@@ -85,17 +91,12 @@ public class LoginActivity extends AppCompatActivity {
 
                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                popMessage(user.getEmail());
+                popMessage("You logged in");
 
                 //Set Button Sign Out
                 //btn_sign_out.setEnabled(true);
             }
-            else if(requestCode == RESULT_CANCELED){
-                popMessage("Sign-In cancelled");
-            }
-            else {
-                popMessage("Login process failed for an unknown reason");
-            }
+
         }
     }
 
@@ -127,20 +128,24 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onClick(View v) {
+   public void onClick(View v) {
 
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // user is now signed out
-                            signInWith();
-                            finish();
-                        }
-                    });
+            btn_continue_main_screen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent mainActivity = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(mainActivity);
+                    finish();
+                }
+            });
     }
 
 
+    public void userLoggedIn(){
+        if(auth.getCurrentUser() == null) {
+            showsSignInOptions();
+        }
+    }
 
 
     public void popMessage(String message){

@@ -45,6 +45,7 @@
         <item name="colorPrimary">@color/material_green_500</item>
         <item name="colorPrimaryDark">@color/material_green_700</item>
         <item name="colorAccent">@color/material_purple_a700</item>
+        <item name="android:textColor">@color/Black</item>
 
         <item name="colorControlNormal">@color/material_green_500</item>
         <item name="colorControlActivated">@color/material_lime_a700</item>
@@ -52,6 +53,10 @@
         <item name="android:windowBackground">@color/material_green_50</item>
     </style>
 
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/Blue</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
 
 
 
