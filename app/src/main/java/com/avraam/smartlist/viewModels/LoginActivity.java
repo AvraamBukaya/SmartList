@@ -3,37 +3,28 @@ package com.avraam.smartlist.viewModels;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.avraam.smartlist.R;
-import com.avraam.smartlist.models.User;
-import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
-
-
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -72,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         full_name.setText("Hi "+auth.getInstance().getCurrentUser().getDisplayName());
         signInWith();
         isExist();
+        //addNewUser();
     }
 
     private void showsSignInOptions()
@@ -158,6 +150,35 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void addNewUser(){
+
+        if (auth.getCurrentUser() == null)
+            return;
+        Map<String, Object> user = new HashMap<>();
+        user.put("UserId",auth.getCurrentUser().getUid());
+        user.put("FullName",auth.getCurrentUser().getDisplayName());
+        user.put("Email",auth.getCurrentUser().getEmail());
+        user.put("Phone",auth.getCurrentUser().getPhoneNumber());
+
+        // Add a new document with a generated ID
+        db.collection("Users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Smart List app", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Smart List app", "Error adding document", e);
+                    }
+                });
+
+    }
+
+
 
     public void isExist() {
         CollectionReference allUsersRef = db.collection("Users");
@@ -176,11 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("UserId",auth.getCurrentUser().getUid());
-                    user.put("FullName",auth.getCurrentUser().getDisplayName());
-                    user.put("Email",auth.getCurrentUser().getEmail());
-                    user.put("Phone",auth.getCurrentUser().getPhoneNumber());
+                  addNewUser();
 
                 } else {
                     popMessage("An error occurred, an entry was not added to the database");
