@@ -9,6 +9,15 @@
     <string name="facebook_application_id" translatable="false">1030922510448913</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb1030922510448913</string>
     <string name="wellcome_to_smart_list_app">Wellcome To Smart List App</string>
+    <string name="nav_barcode_search">Barcode Scanner</string>
+    <string name="nav_add_manually">Add Manually</string>
+    <string name="nav_search_product">Search Product</string>
+    <string name="nav_home">Home</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_product_title_page">Add Product</string>
+    <string name="barcode_scanner">Barcode Scanner</string>
+    <string name="detect_barcode">Detect</string>
 
 </resources>
