@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/detect_barcode"
-        android:background="@color/colorPrimary"
+        android:background="@color/material_yellow"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
