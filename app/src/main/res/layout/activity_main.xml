@@ -10,10 +10,11 @@
     android:padding="10dp"
     >
 
-    <ImageView
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:src="@drawable/background" />
+
 
 
     <LinearLayout
@@ -22,6 +23,7 @@
         android:clipToPadding="false"
         android:gravity="center"
         android:orientation="horizontal">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="160dp"
@@ -34,7 +36,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_btn_add_product"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackgroundgreen"
@@ -77,7 +80,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_btn_view_list"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackgroundgreen"
@@ -130,7 +134,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_btn_attach_file"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackgrondpurple"
@@ -173,7 +178,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/image_btn_report"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackgroundyellow"
