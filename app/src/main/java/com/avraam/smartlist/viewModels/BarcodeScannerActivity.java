@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -35,10 +34,12 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         setContentView(scannerView);
         int currentApiVersion = Build.VERSION.SDK_INT;
 
+
         if(!(currentApiVersion >=  Build.VERSION_CODES.M))
         {
             requestPermission();
         }
+
     }
 
     private boolean checkPermission()
@@ -122,24 +123,33 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(BarcodeScannerActivity.this);
-            }
-        });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-                startActivity(browserIntent);
-            }
-        });
-        builder.setMessage(result.getText());
-        AlertDialog alert1 = builder.create();
-        alert1.show();
+
+        Intent moveToProductDetailsPage = new Intent(BarcodeScannerActivity.this,RetrieveInformation.class);
+        moveToProductDetailsPage.putExtra("BarcodeCode",myResult);
+        startActivityForResult(moveToProductDetailsPage,1);
+        finish();
+
+
+
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Scan Result");
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                scannerView.resumeCameraPreview(BarcodeScannerActivity.this);
+//            }
+//        });
+//        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
+//                startActivity(browserIntent);
+//            }
+//        });
+//        builder.setMessage(result.getText());
+//        AlertDialog alert1 = builder.create();
+//        alert1.show();
 
 
 
