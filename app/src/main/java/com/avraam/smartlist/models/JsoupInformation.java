@@ -24,13 +24,17 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
 
             Document doc = Jsoup.connect("https://chp.co.il/%D7%99%D7%A9%D7%A8%D7%90%D7%9C/0/0/"+RetrieveInformation.barcode+"/0").get();
             Element title = doc.getElementsByTag("title").first();
-            Elements url = doc.getElementsByTag("img").next().next().next().next().next().next().select("src");
-            urlAddress = url.text();
+            Elements url = doc.select("src");
+
+
+
+
+
             Log.d("Url",url.text());
-            System.out.println(urlAddress);
+            //System.out.println(urlAddress);
 
             String productName= title.text().substring(29,title.text().length()-1);
-            words = "Product: "+ productName;
+            words = "שם המוצר: "+"\n"+productName;
         }
         catch (Exception e){ e.printStackTrace();}
         return null;
@@ -43,7 +47,7 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
     {
         super.onPostExecute(aVoid);
         RetrieveInformation.description.setText(words);
-        RetrieveInformation.prodcutPic.setImageURI(Uri.parse(urlAddress));
+        //RetrieveInformation.prodcutPic.setImageURI(Uri.parse(urlAddress));
     }
 }
 

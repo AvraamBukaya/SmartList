@@ -21,6 +21,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_productAdding"
         android:layout_width="400dp"
         android:layout_height="314dp"
         android:layout_below="@+id/section_retrieve_information"
@@ -57,10 +58,8 @@
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="375dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="5dp"
+                android:layout_width="344dp"
+                android:layout_height="234dp"
                 android:text="Product Details"
                 android:textColor="@color/color_primary_dark"
                 android:textStyle="bold" />
@@ -71,11 +70,15 @@
 
 
 
-
-
-
-
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/add_product_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Product"
+        android:background="@color/color_primary_dark"
+        android:layout_alignParentBottom="true"/>
 
 
 

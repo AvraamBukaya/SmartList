@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.avraam.smartlist.R;
+import com.avraam.smartlist.models.FireStoreDb;
 import com.firebase.ui.auth.AuthUI;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_continue_main_screen;
     private TextView full_name;
     private FirebaseAuth auth;
-    private FirebaseFirestore db;
+
 
 
 
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_continue_main_screen = findViewById(R.id.btn_main_screen);
         full_name = findViewById(R.id.user_full_name);
         auth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
         userLoggedIn();
         full_name.setText("Hi "+auth.getInstance().getCurrentUser().getDisplayName());
         signInWith();
@@ -161,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
         user.put("Phone",auth.getCurrentUser().getPhoneNumber());
 
         // Add a new document with a generated ID
-        db.collection("Users")
+        FireStoreDb.FireStoreDb().collection("Users")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -181,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void isExist() {
-        CollectionReference allUsersRef = db.collection("Users");
+        CollectionReference allUsersRef = FireStoreDb.FireStoreDb().collection("Users");
 
         allUsersRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
