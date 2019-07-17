@@ -2,18 +2,15 @@ package com.avraam.smartlist.viewModels;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.avraam.smartlist.R;
+import com.avraam.smartlist.models.Dialog;
 import com.avraam.smartlist.models.FireStoreDb;
 import com.avraam.smartlist.models.JsoupInformation;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -73,7 +70,8 @@ public class RetrieveInformation extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Log.d("Smart List app", "DocumentSnapshot added with ID: " + documentReference.getId());
-
+                                Intent mainScreen = new Intent(RetrieveInformation.this,AddProduct.class);
+                                openDialog(mainScreen);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -90,7 +88,13 @@ public class RetrieveInformation extends AppCompatActivity {
 
     }
 
-
+    private void openDialog(Intent intent) {
+        Dialog addProductDialog = new Dialog();
+        addProductDialog.show(getSupportFragmentManager(),"Information");
+        addProductDialog.setIntent(intent);
+        addProductDialog.setTitle("Information");
+        addProductDialog.setMassege("Product successfully added");
+    }
 
 
 }

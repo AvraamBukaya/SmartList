@@ -13,7 +13,11 @@ import android.widget.Toast;
 import com.avraam.smartlist.R;
 import com.avraam.smartlist.models.FireStoreDb;
 import com.firebase.ui.auth.AuthUI;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_continue_main_screen;
     private TextView full_name;
     private FirebaseAuth auth;
+    private TextView clock;
 
 
 
@@ -56,10 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         );
 
         btn_sign_out = findViewById(R.id.sign_out_btn);
+        clock = findViewById(R.id.clock);
         btn_continue_main_screen = findViewById(R.id.btn_main_screen);
         full_name = findViewById(R.id.user_full_name);
         auth = FirebaseAuth.getInstance();
         //db = FirebaseFirestore.getInstance();
+        setTime();
         userLoggedIn();
         full_name.setText("Hi "+auth.getInstance().getCurrentUser().getDisplayName());
         signInWith();
@@ -211,8 +218,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void setTime(){
+        DateFormat df = new SimpleDateFormat("MMM d, yyyy");
+        String now = df.format(new Date());
+        clock.setText(now);
+    }
 
     public void popMessage(String message){
         Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
