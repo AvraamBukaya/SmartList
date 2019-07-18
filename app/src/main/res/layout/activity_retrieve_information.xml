@@ -57,7 +57,7 @@
                 android:background="@color/light_gray" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/title"
                 android:layout_width="344dp"
                 android:layout_height="234dp"
                 android:text="Product Details"

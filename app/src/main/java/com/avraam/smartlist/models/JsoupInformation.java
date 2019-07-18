@@ -1,6 +1,5 @@
 package com.avraam.smartlist.models;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.avraam.smartlist.viewModels.RetrieveInformation;
@@ -8,8 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.util.List;
 
 public class JsoupInformation extends AsyncTask<Void, Void, Void> {
 
@@ -46,7 +43,7 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid)
     {
         super.onPostExecute(aVoid);
-        RetrieveInformation.description.setText(words);
+        RetrieveInformation.title.setText(words);
         //RetrieveInformation.prodcutPic.setImageURI(Uri.parse(urlAddress));
     }
 }

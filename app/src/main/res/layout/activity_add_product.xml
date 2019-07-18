@@ -9,7 +9,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="686dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:scrollbars="vertical">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_add_product"
@@ -18,15 +22,16 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="60dp"
         android:src="@drawable/ic_add"/>
-    
-    
+
+
     <FrameLayout
         android:id="@+id/fragments_div"
         android:layout_width="match_parent"
-        android:layout_height="679dp"
+        android:layout_height="685dp"
         android:layout_above="@+id/nav_bottom"
-        android:layout_="@+id/section"
-        android:layout_marginBottom="2dp"></FrameLayout>
+        android:layout_marginBottom="2dp">
+
+    </FrameLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,8 +39,10 @@
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        app:menu="@menu/nav_items"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:layout_gravity="bottom|right"
+        app:menu="@menu/nav_items">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 

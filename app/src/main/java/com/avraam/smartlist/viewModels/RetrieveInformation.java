@@ -17,11 +17,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +25,7 @@ import java.util.Map;
 
 public class RetrieveInformation extends AppCompatActivity {
 
-    public static TextView description;
+    public static TextView title;
     public static ImageView prodcutPic;
     public static String barcode;
     private Button add_btn;
@@ -39,7 +34,7 @@ public class RetrieveInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_information);
-        description = findViewById(R.id.description);
+        title = findViewById(R.id.title);
         prodcutPic = findViewById(R.id.product_image);
         setTitle("Product Information");
         Intent intent = getIntent();
@@ -61,9 +56,9 @@ public class RetrieveInformation extends AppCompatActivity {
                 String now = df.format(new Date());
                 Map<String, Object> product = new HashMap<>();
 
-                product.put("Barcode Number",barcode);
-                product.put("Date added",now);
-                product.put("Product Name",description.getText());
+                product.put("Barcode",barcode);
+                product.put("Date_Added",now);
+                product.put("Product_Name", title.getText());
                 FireStoreDb.FireStoreDb().collection("Products")
                         .add(product)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

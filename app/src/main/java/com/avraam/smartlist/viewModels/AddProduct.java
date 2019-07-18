@@ -4,17 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-
 import com.avraam.smartlist.R;
+import com.avraam.smartlist.adapters.ProductAdapter;
+import com.avraam.smartlist.models.FireStoreDb;
+import com.avraam.smartlist.models.Product;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions;
-
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
 
 
 public class AddProduct extends AppCompatActivity {
@@ -24,6 +30,9 @@ public class AddProduct extends AppCompatActivity {
     private FrameLayout mainFrame;
     private SearchFragment searchFragment;
     private AddManuallyFragment addManuallyFragment;
+    private FirebaseFirestore db;
+    private CollectionReference productsRf;
+    private ProductAdapter productAdapter;
 
 
 
@@ -36,9 +45,34 @@ public class AddProduct extends AppCompatActivity {
         mainFrame = findViewById(R.id.fragments_div);
         searchFragment = new SearchFragment();
         addManuallyFragment = new AddManuallyFragment();
+        db = FirebaseFirestore.getInstance();
+        productsRf = db.collection("Products");
+        setUpRecyclerView();
+
         menuItems();
 
 
+    }
+
+    private void setUpRecyclerView() {
+        Query query = productsRf.orderBy("Product_Name",Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Product> options = new FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product.class)
+                .build();
+        productAdapter = new ProductAdapter(options);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(productAdapter);
+    }
+    protected  void onStart(){
+        super.onStart();
+        productAdapter.startListening();
+    }
+
+    protected void onStop(){
+        super.onStop();
+        productAdapter.stopListening();
     }
 
 

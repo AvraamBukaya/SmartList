@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
-        
-        
+
+
         <TextView
-            android:id="@+id/text_view_product_description"
+            android:id="@+id/text_view_product_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
@@ -29,17 +29,19 @@
             android:id="@+id/text_view_product_barcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="description"
+            android:text="Item Barcode"
             android:layout_marginTop="12dp"
-            android:layout_below="@+id/text_view_product_description" />
+            android:layout_below="@+id/text_view_product_title" />
 
         <TextView
-            android:id="@+id/text_view_barcode"
+            android:id="@+id/text_view_product_addedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_product_barcode"
             android:layout_alignParentLeft="true"
-            android:text="Barcode"
-            android:layout_below="@+id/text_view_product_barcode"/>
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="12dp"
+            android:text="Added Date" />
 
     </RelativeLayout>
 
