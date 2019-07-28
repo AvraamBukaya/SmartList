@@ -52,6 +52,10 @@ public class Dialog extends AppCompatDialogFragment {
         this.massege = massege;
     }
 
+    public void moveToNextScreen(){
+        startActivity(intent);
+    }
+
 
 
 

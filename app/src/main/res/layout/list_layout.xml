@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+
+
+    <EditText
+        android:id="@+id/product_name_search"
+        android:layout_width="379dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/label_search"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:hint="Product Name"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/product_barcode_search"
+        android:layout_width="379dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/product_name_search"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:hint="Barcode Number"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"/>
+
+
+
+
+</RelativeLayout>

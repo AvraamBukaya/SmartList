@@ -219,9 +219,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void setTime(){
-        DateFormat df = new SimpleDateFormat("MMM d, yyyy");
-        String now = df.format(new Date());
-        clock.setText(now);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String now = dateFormat.format(new Date());
+        clock.setText("כניסה: "+now);
     }
 
     public void popMessage(String message){

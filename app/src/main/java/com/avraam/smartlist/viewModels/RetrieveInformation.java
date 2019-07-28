@@ -52,8 +52,8 @@ public class RetrieveInformation extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DateFormat df = new SimpleDateFormat("MMM d, yyyy");
-                String now = df.format(new Date());
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                String now = dateFormat.format(new Date());
                 Map<String, Object> product = new HashMap<>();
 
                 product.put("Barcode",barcode);

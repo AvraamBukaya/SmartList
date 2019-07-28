@@ -4,10 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.avraam.smartlist.R;
 import com.avraam.smartlist.models.Product;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -22,9 +20,9 @@ public class ProductAdapter extends FirestoreRecyclerAdapter<Product,ProductAdap
 
     @Override
     protected void onBindViewHolder(@NonNull ProductAdapter.ProductHolder productHolder, int i, @NonNull Product model) {
-        productHolder.textViewTitle.setText(model.getProduct_Name());
-        productHolder.textViewBarcode.setText(model.getBarocde());
-        productHolder.textViewAddedDate.setText(model.getDate_Added());
+        productHolder.textViewTitle.setText(model.getProduct_Name()+"\n");
+        productHolder.textViewBarcode.setText("מספר הברקוד: "+model.getBarcode()+"\n");
+        productHolder.textViewAddedDate.setText("תאריך הוספה: "+model.getDate_Added());
     }
 
     @NonNull

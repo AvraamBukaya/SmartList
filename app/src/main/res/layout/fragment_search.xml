@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     tools:context=".viewModels.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/label_search"
+        android:layout_width="346dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Search Products"
+        android:fontFamily="sans-serif-light"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/search_tab"
+        android:layout_width="379dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/label_search"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/search_outline"
+        android:hint="Enter Product Name...."
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@+id/label_search"
+        android:layout_marginLeft="380dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/search_icon" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_search"
+        android:layout_width="match_parent"
+        android:layout_height="479dp"
+        android:layout_below="@+id/search_icon"
+        android:layout_marginTop="50dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+</RelativeLayout>

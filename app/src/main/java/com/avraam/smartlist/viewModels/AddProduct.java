@@ -10,10 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.avraam.smartlist.R;
 import com.avraam.smartlist.adapters.ProductAdapter;
+import com.avraam.smartlist.models.Dialog;
 import com.avraam.smartlist.models.FireStoreDb;
+import com.avraam.smartlist.models.JsoupInformation;
 import com.avraam.smartlist.models.Product;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,6 +40,10 @@ public class AddProduct extends AppCompatActivity {
     private FirebaseFirestore db;
     private CollectionReference productsRf;
     private ProductAdapter productAdapter;
+    public static String comparePrices;
+    public TextView barcodeProduct ;
+    private ImageView more_icon ;
+    private TextView compartionPriceInformation;
 
 
 
@@ -41,6 +52,7 @@ public class AddProduct extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+        View v = findViewById(R.id.recycler_view);
         bottom_nav = findViewById(R.id.nav_bottom);
         mainFrame = findViewById(R.id.fragments_div);
         searchFragment = new SearchFragment();
@@ -48,10 +60,11 @@ public class AddProduct extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         productsRf = db.collection("Products");
         setUpRecyclerView();
-
+        barcodeProduct = findViewById(R.id.text_view_product_barcode);
+        more_icon = findViewById(R.id.more_icon);
+        compartionPriceInformation = findViewById(R.id.prices_info);
         menuItems();
-
-
+        //onClickPricesCompartionText();
     }
 
     private void setUpRecyclerView() {
@@ -75,6 +88,34 @@ public class AddProduct extends AppCompatActivity {
         productAdapter.stopListening();
     }
 
+    public void onClickPricesCompartionText(){
+    /*    compartionPriceInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                RetrieveInformation.barcode = barcodeProduct.getText().toString();
+                Dialog price = new Dialog();
+                price.show(getSupportFragmentManager(),"Information");
+                price.setTitle("מחיר המוצר ברשתות המזון השונות");
+                price.setMassege(comparePrices);
+
+            }
+        });*/
+
+        more_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              RetrieveInformation.barcode = barcodeProduct.getText().toString();
+              Dialog price = new Dialog();
+              price.show(getSupportFragmentManager(),"Information");
+              price.setTitle("מחיר המוצר ברשתות המזון השונות");
+              price.setMassege(comparePrices);
+            }
+        });
+
+    }
+
 
     public void menuItems(){
         bottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
@@ -89,7 +130,6 @@ public class AddProduct extends AppCompatActivity {
                         startActivity(mainScreen);
                         finish();
                         return true;
-
                     case R.id.nav_barcode_scanner:
                         Intent barcodeScanner =  new Intent(AddProduct.this,BarcodeScannerActivity.class);
                         startActivity(barcodeScanner);
@@ -107,6 +147,8 @@ public class AddProduct extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void setFragment(Fragment fragment){
 

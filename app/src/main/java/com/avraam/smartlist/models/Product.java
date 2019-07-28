@@ -2,7 +2,7 @@ package com.avraam.smartlist.models;
 
 public class Product {
     private String Product_Name;
-    private String Barocde;
+    private String Barcode;
     private String Date_Added;
 
 
@@ -10,9 +10,9 @@ public class Product {
         //Empty constructor needed
     }
 
-    public Product( String added_Date, String barocde,String title) {
+    public Product( String added_Date, String barcode,String title) {
         this.Product_Name = title;
-        this.Barocde = barocde;
+        this.Barcode = barcode;
         this.Date_Added = added_Date;
     }
 
@@ -20,8 +20,8 @@ public class Product {
         return Product_Name;
     }
 
-    public String getBarocde() {
-        return Barocde;
+    public String getBarcode() {
+        return Barcode;
     }
 
     public String getDate_Added() {
@@ -32,8 +32,8 @@ public class Product {
         Product_Name = product_Name;
     }
 
-    public void setBarocde(String barocde) {
-        Barocde = barocde;
+    public void setBarcode(String barcode) {
+        Barcode = barcode;
     }
 
     public void setDate_Added(String date_Added) {
