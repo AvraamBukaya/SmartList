@@ -3,16 +3,24 @@ package com.avraam.smartlist.models;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.avraam.smartlist.viewModels.AddProduct;
-import com.avraam.smartlist.viewModels.RetrieveInformation;
+import com.avraam.smartlist.viewModels.Activities.AddProduct;
+import com.avraam.smartlist.viewModels.Activities.RetrieveInformation;
 import org.jsoup.Jsoup;
+import org.jsoup.internal.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import io.opencensus.internal.StringUtils;
+
 public class JsoupInformation extends AsyncTask<Void, Void, Void> {
 
-    private String words;
+    private String productTitle;
+    private String productDescription;
+    private String productPrice;
 
 
 
@@ -23,22 +31,45 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
         try
         {
 
+
             Document doc = Jsoup.connect("https://chp.co.il/%D7%99%D7%A9%D7%A8%D7%90%D7%9C/0/0/"+RetrieveInformation.barcode+"/0").get();
             Element title = doc.getElementsByTag("title").first();
-            Elements url = doc.select("src");
-            Element prices = doc.getElementsByClass("table results-table").first();
+            Elements prices = doc.getElementsByClass("line-odd");
+            String[] downServers = null;
+            Elements table= prices.select("tr");
+            String product_price = table.first().text();
+          /*  for(Element index : table)
+            {
+                prodcutPrice+=index+"\n";
+            }*/
+
+            if(!product_price.isEmpty())
+            {
+                downServers = product_price.split(" ");
+            }
+
+            System.out.println(Arrays.toString(downServers));
 
 
 
+          /*  for(int i=0;i<downServers.length;i++){
+                System.out.println(downServers[i]);
+            }
+*/
 
-
-            Log.d("Url",url.text());
-            //System.out.println(urlAddress);
 
             String productName= title.text().substring(29,title.text().length()-1);
-            words = "שם המוצר: "+productName;
+            productPrice = downServers[downServers.length-1];
 
-            AddProduct.comparePrices = prices.text();
+
+
+
+            productTitle = "שם המוצר: "+productName;
+            productDescription = productTitle+ "\n"+"המחיר הינו: "+productPrice;
+
+
+
+            //AddProduct.comparePrices = prodcutPrice;
         }
         catch (Exception e){ e.printStackTrace();}
         return null;
@@ -50,7 +81,9 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid)
     {
         super.onPostExecute(aVoid);
-        RetrieveInformation.title.setText(words);
+        RetrieveInformation.title.setText(productDescription);
+        RetrieveInformation.price = productPrice;
+        RetrieveInformation.description = productTitle;
         //RetrieveInformation.prodcutPic.setImageURI(Uri.parse(urlAddress));
     }
 

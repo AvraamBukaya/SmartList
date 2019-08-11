@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewModels.RetrieveInformation">
+    tools:context=".viewModels.Activities.RetrieveInformation">
 
     <LinearLayout
         android:id="@+id/section_retrieve_information"

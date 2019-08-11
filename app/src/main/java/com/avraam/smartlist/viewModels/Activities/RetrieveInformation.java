@@ -1,4 +1,4 @@
-package com.avraam.smartlist.viewModels;
+package com.avraam.smartlist.viewModels.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +15,8 @@ import com.avraam.smartlist.models.FireStoreDb;
 import com.avraam.smartlist.models.JsoupInformation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +28,10 @@ public class RetrieveInformation extends AppCompatActivity {
     public static TextView title;
     public static ImageView prodcutPic;
     public static String barcode;
+    public static String price;
+    public static String description;
     private Button add_btn;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,9 @@ public class RetrieveInformation extends AppCompatActivity {
         setTitle("Product Information");
         Intent intent = getIntent();
         barcode = intent.getExtras().getString("BarcodeCode");
-        new JsoupInformation().execute();
 
+        new JsoupInformation().execute();
+        auth = FirebaseAuth.getInstance();
         add_btn = findViewById(R.id.add_product_btn);
         onClickAddProduct();
 
@@ -55,17 +59,21 @@ public class RetrieveInformation extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 String now = dateFormat.format(new Date());
                 Map<String, Object> product = new HashMap<>();
-
+                Map<String, Object> productPerUser = new HashMap<>();
+                int l = description.length();
                 product.put("Barcode",barcode);
                 product.put("Date_Added",now);
-                product.put("Product_Name", title.getText());
+                product.put("Product_Name", description.substring(10,l));
+                product.put("Price",price);
+                productPerUser.put("ProductBarcode",barcode);
+                productPerUser.put("UserId",auth.getCurrentUser().getUid());
                 FireStoreDb.FireStoreDb().collection("Products")
                         .add(product)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Log.d("Smart List app", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Intent mainScreen = new Intent(RetrieveInformation.this,AddProduct.class);
+                                Intent mainScreen = new Intent(RetrieveInformation.this, AddProduct.class);
                                 openDialog(mainScreen);
                             }
                         })
@@ -75,10 +83,22 @@ public class RetrieveInformation extends AppCompatActivity {
                                 Log.w("Smart List app", "Error adding product document", e);
                             }
                         });
+                FireStoreDb.FireStoreDb().collection("ProductsPerUser").add(productPerUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Smart List app", "DocumentSnapshot added with ID: " + documentReference.getId());
 
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Smart List app", "Error adding product document", e);
+                    }
+                });
 
             }
         });
+
 
 
     }

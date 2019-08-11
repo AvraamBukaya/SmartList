@@ -30,7 +30,11 @@
         android:paddingRight="20dp"
         android:paddingBottom="10dp"/>
 
-
-
+    <View
+        android:id="@+id/border_search"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_below="@+id/product_barcode_search"
+        android:layout_marginTop="37dp"/>
 
 </RelativeLayout>

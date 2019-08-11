@@ -1,4 +1,4 @@
-package com.avraam.smartlist.viewModels;
+package com.avraam.smartlist.viewModels.Fragmnets;
 
 
 import android.os.Bundle;

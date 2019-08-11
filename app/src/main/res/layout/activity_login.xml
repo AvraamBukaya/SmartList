@@ -4,79 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewModels.LoginActivity">
+    tools:context=".viewModels.Activities.LoginActivity">
 
     <LinearLayout
-        android:id="@+id/upper_div"
+        android:id="@+id/section_1"
         android:layout_width="match_parent"
-        android:layout_height="292dp"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:layout_marginTop="-2dp">
+        android:layout_height="223dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/clock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignTop="@+id/section_1"
+            android:layout_gravity="top"
+            android:hint="Login Time" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="238dp"
+            android:layout_height="150dp"
             android:src="@drawable/shopping_login_icon" />
 
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="395dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/wellcome_to_smart_list_app"
-            android:textColor="@android:color/background_dark"
             android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/White">
-
-        </View>
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/clock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/user_full_name"/>
 
-    <TextView
-        android:id="@+id/user_full_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/upper_div"
-        android:layout_marginBottom="-53dp"
-        android:fontFamily="@fonts/lobster"
-        android:text="" />
+    <LinearLayout
+        android:layout_width="366dp"
+        android:layout_height="270dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
 
-
-
-    <Button
-        android:id="@+id/btn_main_screen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/sign_out_btn"
-        android:layout_marginTop="-51dp"
-        android:onClick="onClick"
-        android:text="@string/btn_move_to_main_screen"
-        android:textColor="@color/Blue"
-        android:background="@drawable/button_border"/>
-
-    <Button
-        android:id="@+id/sign_out_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/sign_out_btn" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="117dp"
+            android:layout_height="98dp"
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait" />
 
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/user_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="User name" />
+
+        <Button
+            android:id="@+id/btn_main_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/sign_out_btn"
+            android:background="@color/White"
+            android:onClick="onClick"
+            android:text="@string/btn_move_to_main_screen"
+            android:textColor="@color/Blue" />
+
+
+        <Button
+            android:id="@+id/sign_out_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_out_btn" />
+
+
+    </LinearLayout>
+
+
+    </RelativeLayout>

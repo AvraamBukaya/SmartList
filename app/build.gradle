@@ -37,14 +37,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-ml-vision:21.0.0'
     implementation 'com.google.firebase:firebase-firestore:20.1.0'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.wonderkiln:camerakit:0.13.1'
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+    implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'org.jsoup:jsoup:1.12.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
     //noinspection GradleCompatible

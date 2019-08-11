@@ -1,11 +1,10 @@
-package com.avraam.smartlist.viewModels;
+package com.avraam.smartlist.viewModels.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -124,7 +123,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
 
-        Intent moveToProductDetailsPage = new Intent(BarcodeScannerActivity.this,RetrieveInformation.class);
+        Intent moveToProductDetailsPage = new Intent(BarcodeScannerActivity.this, RetrieveInformation.class);
         moveToProductDetailsPage.putExtra("BarcodeCode",myResult);
         startActivityForResult(moveToProductDetailsPage,1);
         finish();

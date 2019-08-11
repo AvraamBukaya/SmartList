@@ -6,12 +6,14 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String image;
 
-    public User(String userId,String firstName, String lastName, String email) {
+    public User(String userId,String firstName, String lastName, String email,String image) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.image = image;
     }
 
     public User() {
@@ -49,6 +51,10 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getImage() { return image; }
+
+    public void setImage(String image) { this.image = image; }
 
     @Override
     public String toString() {

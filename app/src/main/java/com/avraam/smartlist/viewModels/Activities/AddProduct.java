@@ -1,9 +1,10 @@
-package com.avraam.smartlist.viewModels;
+package com.avraam.smartlist.viewModels.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,14 +19,13 @@ import android.widget.TextView;
 import com.avraam.smartlist.R;
 import com.avraam.smartlist.adapters.ProductAdapter;
 import com.avraam.smartlist.models.Dialog;
-import com.avraam.smartlist.models.FireStoreDb;
-import com.avraam.smartlist.models.JsoupInformation;
 import com.avraam.smartlist.models.Product;
+import com.avraam.smartlist.viewModels.Fragmnets.AddManuallyFragment;
+import com.avraam.smartlist.viewModels.Fragmnets.SearchFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 
 
@@ -77,6 +76,18 @@ public class AddProduct extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(productAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                productAdapter.deleteItem(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(recyclerView);
     }
     protected  void onStart(){
         super.onStart();
@@ -126,12 +137,12 @@ public class AddProduct extends AppCompatActivity {
                 switch (menuItem.getItemId())
                 {
                     case R.id.nav_home:
-                        Intent mainScreen = new Intent(AddProduct.this,MainActivity.class);
+                        Intent mainScreen = new Intent(AddProduct.this, MainActivity.class);
                         startActivity(mainScreen);
                         finish();
                         return true;
                     case R.id.nav_barcode_scanner:
-                        Intent barcodeScanner =  new Intent(AddProduct.this,BarcodeScannerActivity.class);
+                        Intent barcodeScanner =  new Intent(AddProduct.this, BarcodeScannerActivity.class);
                         startActivity(barcodeScanner);
                         return true;
                     case R.id.nav_add_manually_product:

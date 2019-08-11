@@ -20,9 +20,10 @@ public class ProductAdapter extends FirestoreRecyclerAdapter<Product,ProductAdap
 
     @Override
     protected void onBindViewHolder(@NonNull ProductAdapter.ProductHolder productHolder, int i, @NonNull Product model) {
-        productHolder.textViewTitle.setText(model.getProduct_Name()+"\n");
+        productHolder.textViewTitle.setText("שם המוצר: "+model.getProduct_Name()+"\n");
         productHolder.textViewBarcode.setText("מספר הברקוד: "+model.getBarcode()+"\n");
-        productHolder.textViewAddedDate.setText("תאריך הוספה: "+model.getDate_Added());
+        productHolder.textViewAddedDate.setText("תאריך הוספה: "+model.getDate_Added()+"\n");
+        productHolder.textViewPrice.setText("מחיר מוצר:"+model.getPrice());
     }
 
     @NonNull
@@ -33,18 +34,23 @@ public class ProductAdapter extends FirestoreRecyclerAdapter<Product,ProductAdap
         return new ProductAdapter.ProductHolder(view);
     }
 
+    public void deleteItem(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
 
     class ProductHolder extends RecyclerView.ViewHolder{
 
         TextView textViewTitle;
         TextView textViewBarcode;
         TextView textViewAddedDate;
+        TextView textViewPrice;
 
         public ProductHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_product_title);
             textViewBarcode = itemView.findViewById(R.id.text_view_product_barcode);
             textViewAddedDate = itemView.findViewById(R.id.text_view_product_addedDate);
+            textViewPrice = itemView.findViewById(R.id.text_view_product_price);
         }
     }
 
