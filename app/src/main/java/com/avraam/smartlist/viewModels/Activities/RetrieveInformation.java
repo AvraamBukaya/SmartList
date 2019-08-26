@@ -16,6 +16,7 @@ import com.avraam.smartlist.models.JsoupInformation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,7 @@ public class RetrieveInformation extends AppCompatActivity {
     public static String price;
     public static String description;
     private Button add_btn;
+    private Button back_btn;
     private FirebaseAuth auth;
 
     @Override
@@ -42,11 +44,12 @@ public class RetrieveInformation extends AppCompatActivity {
         setTitle("Product Information");
         Intent intent = getIntent();
         barcode = intent.getExtras().getString("BarcodeCode");
-
         new JsoupInformation().execute();
         auth = FirebaseAuth.getInstance();
         add_btn = findViewById(R.id.add_product_btn);
+        back_btn = findViewById(R.id.back_product_btn);
         onClickAddProduct();
+        onClickBackToBarcodeScannerBtn();
 
 
     }
@@ -62,6 +65,7 @@ public class RetrieveInformation extends AppCompatActivity {
                 Map<String, Object> productPerUser = new HashMap<>();
                 int l = description.length();
                 product.put("Barcode",barcode);
+                product.put("UserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 product.put("Date_Added",now);
                 product.put("Product_Name", description.substring(10,l));
                 product.put("Price",price);
@@ -101,6 +105,15 @@ public class RetrieveInformation extends AppCompatActivity {
 
 
 
+    }
+    public void onClickBackToBarcodeScannerBtn(){
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RetrieveInformation.this,BarcodeScannerActivity.class));
+                finish();
+            }
+        });
     }
 
     private void openDialog(Intent intent) {

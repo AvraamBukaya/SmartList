@@ -127,32 +127,6 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         moveToProductDetailsPage.putExtra("BarcodeCode",myResult);
         startActivityForResult(moveToProductDetailsPage,1);
         finish();
-
-
-
-
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Scan Result");
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                scannerView.resumeCameraPreview(BarcodeScannerActivity.this);
-//            }
-//        });
-//        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-//                startActivity(browserIntent);
-//            }
-//        });
-//        builder.setMessage(result.getText());
-//        AlertDialog alert1 = builder.create();
-//        alert1.show();
-
-
-
-
     }
 
 

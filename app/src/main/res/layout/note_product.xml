@@ -7,12 +7,12 @@
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    app:cardBackgroundColor="@color/WhiteSmoke">
+    app:cardBackgroundColor="@color/White">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="219dp"
         android:padding="8dp">
 
 
@@ -23,7 +23,11 @@
             android:layout_alignParentRight="true"
             android:text="Title"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/Black" />
+            android:textColor="@color/Blue" />
+
+        <ImageView
+            android:layout_width="83dp"
+            android:layout_height="74dp" />
 
         <TextView
             android:id="@+id/text_view_product_barcode"
@@ -33,7 +37,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="12dp"
             android:text="Item Barcode"
-            android:textColor="@color/Black" />
+            android:textColor="@color/Blue" />
 
         <TextView
             android:id="@+id/text_view_product_price"
@@ -44,7 +48,7 @@
             android:layout_marginLeft="6dp"
             android:layout_marginTop="12dp"
             android:text="Product Price"
-            android:textColor="@color/Black" />
+            android:textColor="@color/Blue" />
 
         <TextView
             android:id="@+id/text_view_product_addedDate"
@@ -56,7 +60,7 @@
             android:layout_marginTop="44dp"
             android:layout_marginRight="3dp"
             android:text="Added Date"
-            android:textColor="@color/Black" />
+            android:textColor="@color/Blue" />
 
         <View
             android:id="@+id/border"
@@ -82,9 +86,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/border"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="170dp"
             android:layout_marginTop="21dp"
-            android:layout_centerInParent="true"
             android:text="מחירי המוצר ברשתות השונות" />
 
 

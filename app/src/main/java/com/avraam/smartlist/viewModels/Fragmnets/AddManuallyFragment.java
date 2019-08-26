@@ -21,6 +21,7 @@ import com.avraam.smartlist.models.FireStoreDb;
 import com.avraam.smartlist.viewModels.Activities.AddProduct;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.text.DateFormat;
@@ -36,6 +37,7 @@ public class AddManuallyFragment extends Fragment {
     private EditText productName;
     private EditText productBarcode;
     private TextView productAddedDate;
+    private TextView productPrice;
     private Button save_btn;
 
     public AddManuallyFragment() {
@@ -51,6 +53,7 @@ public class AddManuallyFragment extends Fragment {
         productName = v.findViewById(R.id.add_manually_product_name);
         productBarcode = v.findViewById(R.id.add_manually_barcode);
         productAddedDate = v.findViewById(R.id.add__manually_date);
+        productPrice = v.findViewById(R.id.add__manually_price);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String now = dateFormat.format(new Date());
         productAddedDate.setText(now);
@@ -67,9 +70,14 @@ public class AddManuallyFragment extends Fragment {
             public void onClick(View view) {
                 if (isValidateField()) {
                     Map<String, String> product = new HashMap<>();
+                    Map<String, String> productPerUser = new HashMap<>();
+                    product.put("UserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     product.put("Barcode", productBarcode.getText().toString());
                     product.put("Date_Added", productAddedDate.getText().toString());
                     product.put("Product_Name", productName.getText().toString());
+                    product.put("Price",productPrice.getText().toString());
+                    productPerUser.put("UserId",FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    productPerUser.put("ProductBarcode",productBarcode.getText().toString());
                     FireStoreDb.FireStoreDb().collection("Products")
                             .add(product)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

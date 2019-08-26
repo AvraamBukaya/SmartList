@@ -52,6 +52,7 @@ public class SearchFragment extends Fragment {
     private CollectionReference productsRf;
     private ArrayList<String> products;
     private ArrayList<String> barcodes;
+    private ArrayList<String> prices;
     private SearchAdpter searchAdpter;
 
 
@@ -76,6 +77,7 @@ public class SearchFragment extends Fragment {
         resultList.addItemDecoration(new DividerItemDecoration(getActivity(),LinearLayoutManager.VERTICAL));
         products = new ArrayList<>();
         barcodes = new ArrayList<>();
+        prices = new ArrayList<>();
         onClickSearch();
 
         return view;
@@ -122,6 +124,7 @@ public class SearchFragment extends Fragment {
 
                         String productName= document.get("Product_Name").toString();
                         String barcode = document.get("Barcode").toString();
+                        String price = document.get("Price").toString();
 
                         int counter = 0;
 
@@ -129,12 +132,14 @@ public class SearchFragment extends Fragment {
                         {
                             products.add(productName);
                             barcodes.add(barcode);
+                            prices.add(price);
                             counter++;
                         }
                         else if(barcode.contains(searchedString))
                         {
                             products.add(productName);
                             barcodes.add(barcode);
+                            prices.add(price);
                             counter++;
                         }
 
@@ -142,7 +147,7 @@ public class SearchFragment extends Fragment {
                             break;
                     }
 
-                    searchAdpter = new SearchAdpter(getActivity(), products,barcodes);
+                    searchAdpter = new SearchAdpter(getActivity(), products,barcodes,prices);
                     resultList.setAdapter(searchAdpter);
                 }
             }

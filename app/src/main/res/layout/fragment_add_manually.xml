@@ -52,10 +52,24 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_manually_barcode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/add__manually_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -74,8 +88,8 @@
             <Button
                 android:id="@+id/save_button"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="310dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="220dp"
                 android:background="@color/SlateGray"
                 android:text="Save"
                 android:textColor="@color/Blue" />

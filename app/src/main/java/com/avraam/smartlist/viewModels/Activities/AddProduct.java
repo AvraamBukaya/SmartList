@@ -24,6 +24,7 @@ import com.avraam.smartlist.viewModels.Fragmnets.AddManuallyFragment;
 import com.avraam.smartlist.viewModels.Fragmnets.SearchFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -43,6 +44,7 @@ public class AddProduct extends AppCompatActivity {
     public TextView barcodeProduct ;
     private ImageView more_icon ;
     private TextView compartionPriceInformation;
+    private FirebaseAuth auth ;
 
 
 
@@ -52,6 +54,7 @@ public class AddProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         View v = findViewById(R.id.recycler_view);
+        auth = FirebaseAuth.getInstance();
         bottom_nav = findViewById(R.id.nav_bottom);
         mainFrame = findViewById(R.id.fragments_div);
         searchFragment = new SearchFragment();
@@ -59,6 +62,7 @@ public class AddProduct extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         productsRf = db.collection("Products");
         setUpRecyclerView();
+
         barcodeProduct = findViewById(R.id.text_view_product_barcode);
         more_icon = findViewById(R.id.more_icon);
         compartionPriceInformation = findViewById(R.id.prices_info);
@@ -68,6 +72,7 @@ public class AddProduct extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         Query query = productsRf.orderBy("Product_Name",Query.Direction.DESCENDING);
+        query = query.whereEqualTo("UserId",auth.getCurrentUser().getUid());
         FirestoreRecyclerOptions<Product> options = new FirestoreRecyclerOptions.Builder<Product>()
                 .setQuery(query, Product.class)
                 .build();
@@ -100,18 +105,7 @@ public class AddProduct extends AppCompatActivity {
     }
 
     public void onClickPricesCompartionText(){
-    /*    compartionPriceInformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                RetrieveInformation.barcode = barcodeProduct.getText().toString();
-                Dialog price = new Dialog();
-                price.show(getSupportFragmentManager(),"Information");
-                price.setTitle("מחיר המוצר ברשתות המזון השונות");
-                price.setMassege(comparePrices);
-
-            }
-        });*/
 
         more_icon.setOnClickListener(new View.OnClickListener() {
             @Override

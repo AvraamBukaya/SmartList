@@ -36,31 +36,22 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
             Element title = doc.getElementsByTag("title").first();
             Elements prices = doc.getElementsByClass("line-odd");
             String[] downServers = null;
+            String productName= title.text().substring(29,title.text().length()-1);
             Elements table= prices.select("tr");
             String product_price = table.first().text();
-          /*  for(Element index : table)
-            {
-                prodcutPrice+=index+"\n";
-            }*/
+
+            if(productName.isEmpty()){
+                productName = "unknown";
+            }
 
             if(!product_price.isEmpty())
             {
                 downServers = product_price.split(" ");
+                productPrice = downServers[downServers.length-1];
             }
+            else productPrice =  null;
 
-            System.out.println(Arrays.toString(downServers));
-
-
-
-          /*  for(int i=0;i<downServers.length;i++){
-                System.out.println(downServers[i]);
-            }
-*/
-
-
-            String productName= title.text().substring(29,title.text().length()-1);
-            productPrice = downServers[downServers.length-1];
-
+            //System.out.println(Arrays.toString(downServers));
 
 
 
@@ -85,6 +76,9 @@ public class JsoupInformation extends AsyncTask<Void, Void, Void> {
         RetrieveInformation.price = productPrice;
         RetrieveInformation.description = productTitle;
         //RetrieveInformation.prodcutPic.setImageURI(Uri.parse(urlAddress));
+    }
+    public boolean isNull(String word){
+        return word.length()>0;
     }
 
 

@@ -76,16 +76,17 @@ public class LoginActivity extends AppCompatActivity {
     private List<AuthUI.IdpConfig> providers;
     private Button btn_sign_out;
     private Button btn_continue_main_screen;
-    private EditText full_name;
+    private TextView full_name;
     private FirebaseAuth auth;
     private EditText clock;
     private CircleImageView imageUserPhoto;
     private StorageReference storageReference;
     private CollectionReference userRf;
-    private FirebaseUser user;
+
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
+    private static FirebaseUser user;
 
 
 
@@ -105,14 +106,15 @@ public class LoginActivity extends AppCompatActivity {
         clock = findViewById(R.id.clock);
         btn_continue_main_screen = findViewById(R.id.btn_main_screen);
         full_name = findViewById(R.id.user_full_name);
+
         auth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("UsersImages");
         imageUserPhoto = findViewById(R.id.profile_image);
         userRf = FireStoreDb.FireStoreDb().collection("Users");
-        user = auth.getCurrentUser();
+        //user = auth.getCurrentUser();
         setTime();
         userLoggedIn();
-        full_name.setText("Hi " + getName());
+
         signInWith();
         isExist();
         //addNewUser();
@@ -126,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showsSignInOptions()
     {
+        auth.signOut();
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder().
                         setAvailableProviders(providers).
@@ -133,26 +136,22 @@ public class LoginActivity extends AppCompatActivity {
                         setLogo(R.drawable.shoppingcard)
                         .build(), MY_REQUEST_CODE
         );
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK)
         {
 
             if (requestCode == MY_REQUEST_CODE)
             {
                 IdpResponse response = IdpResponse.fromResultIntent(data);
-                //Get User
-
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                full_name.setText("Hi " + getName());
                 popMessage("You logged in");
-
-                //
             }
 
         }
@@ -171,23 +170,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signInWith()
     {
+        auth.signOut();
         btn_sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthUI.getInstance()
-                        .signOut(LoginActivity.this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                //btn_sign_out.setEnabled(false);
-                                showsSignInOptions();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        popMessage(e.getMessage());
-                    }
-                });
+           showsSignInOptions();
             }
         });
     }
@@ -252,10 +239,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
+                    for (DocumentSnapshot document : task.getResult())
+                    {
                         String useriD = document.getString("UserId");
                         if (useriD.equals(auth.getUid())) {
-                            //Toast.makeText(LoginActivity.this, "User already exists.", Toast.LENGTH_SHORT).show();
+                           Log.d("Smart List User Login","User is Allready exist");
                             return;
                         }
                     }
@@ -284,11 +272,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public String getName()
     {
-        if (auth.getCurrentUser() != null) {
-            if (auth.getCurrentUser().getDisplayName().length() > 0)
-                return auth.getCurrentUser().getDisplayName();
-            else if (auth.getCurrentUser().getEmail().length() > 0)
-                return auth.getCurrentUser().getEmail();
+
+        if (user != null) {
+            if (user.getDisplayName().length() > 0)
+                return user.getDisplayName();
+            else if (user.getEmail().length() > 0)
+                return user.getEmail();
         }
         return "unknown";
     }
